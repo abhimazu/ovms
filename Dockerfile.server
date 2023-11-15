@@ -16,4 +16,4 @@ ADD https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.1/model
 EXPOSE 9000
 
 # Start the server
-CMD ["--model_path", "/models/face-detection", "--model_name", "face-detection", "--port", "9000", "--shape", "auto"]
+# CMD ["--model_path", "/models/face-detection", "--model_name", "face-detection", "--port", "9000", "--shape", "auto"]
