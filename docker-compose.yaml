@@ -1,0 +1,38 @@
+version: '3.8'
+networks: 
+  ovms-bridge:
+    driver: bridge
+services:
+  ovms_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    hostname: ovms-server
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    expose: 
+      - "9000"
+    networks: 
+      - ovms-bridge
+    command: [--port=9000, --model_name=face-detection, --model_path=/models, --shape=auto]
+    tty: 
+      true
+
+  ovms_client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    environment: 
+      SERVER_NAME: ovms-server
+      GRPC_PORT: 9000
+    ports:
+      - "8000:8000"
+    networks: 
+      - ovms-bridge
+    depends_on:
+      - ovms_server
+    links: 
+      - ovms_server
+    tty:
+      true
