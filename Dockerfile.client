@@ -1,4 +1,4 @@
-FROM openvino/ubuntu20_runtime
+FROM openvino/ubuntu20_runtime:2023.1.0
 
 USER root
 ENV http_proxy="http://proxy-dmz.intel.com:911"
