@@ -5,7 +5,7 @@ ENV http_proxy="http://proxy-dmz.intel.com:911"
 ENV https_proxy="http://proxy-dmz.intel.com:912"
 ENV HTTP_PROXY="http://proxy-dmz.intel.com:911"
 ENV HTTPS_PROXY="http://proxy-dmz.intel.com:912"
-RUN apt update && apt install git
+RUN apt update && apt install git -y
 
 # Copy the client utilities, detection script and requirements file
 RUN git clone https://github.com/openvinotoolkit/model_server.git
