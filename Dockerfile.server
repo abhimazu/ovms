@@ -1,0 +1,19 @@
+FROM openvino/model_server:2023.1-gpu
+
+# Create a directory for the model
+WORKDIR /models/face-detection
+RUN mkdir -p /models/face-detection/1
+
+# Download the model
+
+# RUN curl --create-dirs https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.1/models_bin/2/face-detection-retail-0004/FP32/face-detection-retail-0004.xml https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.1/models_bin/2/face-detection-retail-0004/FP32/face-detection-retail-0004.bin -o model/1/face-detection-retail-0004.xml -o model/1/face-detection-retail-0004.bin
+
+# Download the model
+ADD https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.1/models_bin/2/face-detection-retail-0004/FP32/face-detection-retail-0004.xml /models/face-detection/1/
+ADD https://storage.openvinotoolkit.org/repositories/open_model_zoo/2022.1/models_bin/2/face-detection-retail-0004/FP32/face-detection-retail-0004.bin /models/face-detection/1/
+
+# Expose the port the server listens on
+EXPOSE 9000
+
+# Start the server
+CMD ["--model_path", "/models/face-detection", "--model_name", "face-detection", "--port", "9000", "--shape", "auto"]
