@@ -1,0 +1,27 @@
+FROM openvino/ubuntu20_runtime
+
+USER root
+ENV http_proxy="http://proxy-dmz.intel.com:911"
+ENV https_proxy="http://proxy-dmz.intel.com:912"
+ENV HTTP_PROXY="http://proxy-dmz.intel.com:911"
+ENV HTTPS_PROXY="http://proxy-dmz.intel.com:912"
+RUN apt update && apt install git
+
+# Copy the client utilities, detection script and requirements file
+RUN git clone https://github.com/openvinotoolkit/model_server.git
+
+WORKDIR model_server/demos/face_detection/python
+
+# Install dependencies
+RUN pip install --upgrade pip && pip install -r ../../common/python/requirements.txt
+
+# Create directory for input images and results
+RUN mkdir results
+
+ENV http_proxy=
+ENV https_proxy=
+ENV HTTP_PROXY=
+ENV HTTPS_PROXY=
+
+# Default command (can be overridden)
+CMD ["python", "face_detection.py", "--batch_size", "1", "--width", "300", "--height", "300", "--output_dir", "results", "--grpc_port", "9000"]
