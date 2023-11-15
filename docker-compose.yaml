@@ -28,7 +28,7 @@ services:
       context: .
       dockerfile: Dockerfile.client
     environment: 
-      SERVER_NAME: ovms-server
+      SERVER_NAME: ovms-client
       GRPC_PORT: 9000
     ports:
       - "8000:8000"
